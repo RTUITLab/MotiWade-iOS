@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,10 @@
 		6DB285362555BD08004DEDF6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DB285352555BD08004DEDF6 /* Preview Assets.xcassets */; };
 		6DB2853F2555BF3E004DEDF6 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2853E2555BF3E004DEDF6 /* WebView.swift */; };
 		6DB285422555C7ED004DEDF6 /* secret.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DB285412555C7ED004DEDF6 /* secret.json */; };
+		6DB285562555DDA3004DEDF6 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB285552555DDA3004DEDF6 /* FirebaseAuth */; };
+		6DB285582555DDA3004DEDF6 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB285572555DDA3004DEDF6 /* FirebaseMessaging */; };
+		6DB2855B2555DDCB004DEDF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2855A2555DDCB004DEDF6 /* AppDelegate.swift */; };
+		6DB2855E2555DEF6004DEDF6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6DB2855D2555DEF6004DEDF6 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,9 @@
 		6DB285372555BD08004DEDF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6DB2853E2555BF3E004DEDF6 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		6DB285412555C7ED004DEDF6 /* secret.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = secret.json; sourceTree = "<group>"; };
+		6DB2855A2555DDCB004DEDF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6DB2855D2555DEF6004DEDF6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6DB285602555E417004DEDF6 /* MotiWade.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MotiWade.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +38,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DB285582555DDA3004DEDF6 /* FirebaseMessaging in Frameworks */,
+				6DB285562555DDA3004DEDF6 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,13 +65,16 @@
 		6DB2852D2555BD05004DEDF6 /* MotiWade */ = {
 			isa = PBXGroup;
 			children = (
+				6DB285602555E417004DEDF6 /* MotiWade.entitlements */,
 				6DB2852E2555BD05004DEDF6 /* MotiWadeApp.swift */,
 				6DB285302555BD05004DEDF6 /* ContentView.swift */,
 				6DB285322555BD08004DEDF6 /* Assets.xcassets */,
 				6DB285372555BD08004DEDF6 /* Info.plist */,
 				6DB285342555BD08004DEDF6 /* Preview Content */,
 				6DB2853E2555BF3E004DEDF6 /* WebView.swift */,
+				6DB2855D2555DEF6004DEDF6 /* GoogleService-Info.plist */,
 				6DB285412555C7ED004DEDF6 /* secret.json */,
+				6DB2855A2555DDCB004DEDF6 /* AppDelegate.swift */,
 			);
 			path = MotiWade;
 			sourceTree = "<group>";
@@ -91,6 +103,10 @@
 			dependencies = (
 			);
 			name = MotiWade;
+			packageProductDependencies = (
+				6DB285552555DDA3004DEDF6 /* FirebaseAuth */,
+				6DB285572555DDA3004DEDF6 /* FirebaseMessaging */,
+			);
 			productName = MotiWade;
 			productReference = 6DB2852B2555BD05004DEDF6 /* MotiWade.app */;
 			productType = "com.apple.product-type.application";
@@ -118,6 +134,9 @@
 				Base,
 			);
 			mainGroup = 6DB285222555BD05004DEDF6;
+			packageReferences = (
+				6DB285542555DDA3004DEDF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 6DB2852C2555BD05004DEDF6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -133,6 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DB285422555C7ED004DEDF6 /* secret.json in Resources */,
+				6DB2855E2555DEF6004DEDF6 /* GoogleService-Info.plist in Resources */,
 				6DB285362555BD08004DEDF6 /* Preview Assets.xcassets in Resources */,
 				6DB285332555BD08004DEDF6 /* Assets.xcassets in Resources */,
 			);
@@ -145,6 +165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DB2855B2555DDCB004DEDF6 /* AppDelegate.swift in Sources */,
 				6DB2853F2555BF3E004DEDF6 /* WebView.swift in Sources */,
 				6DB285312555BD05004DEDF6 /* ContentView.swift in Sources */,
 				6DB2852F2555BD05004DEDF6 /* MotiWadeApp.swift in Sources */,
@@ -275,6 +296,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MotiWade/MotiWade.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"MotiWade/Preview Content\"";
@@ -298,6 +320,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MotiWade/MotiWade.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"MotiWade/Preview Content\"";
@@ -338,6 +361,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6DB285542555DDA3004DEDF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				branch = "7.0-spm-beta";
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6DB285552555DDA3004DEDF6 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB285542555DDA3004DEDF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		6DB285572555DDA3004DEDF6 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB285542555DDA3004DEDF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6DB285232555BD05004DEDF6 /* Project object */;
 }

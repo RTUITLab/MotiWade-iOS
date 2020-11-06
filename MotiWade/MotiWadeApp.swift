@@ -9,6 +9,8 @@ import SwiftUI
 
 @main
 struct MotiWadeApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var deleagate
+
     var body: some Scene {
         WindowGroup {
             ContentView()
