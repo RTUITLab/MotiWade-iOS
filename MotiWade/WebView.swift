@@ -15,7 +15,27 @@ struct WebView: UIViewRepresentable
     
     func makeUIView(context: UIViewRepresentableContext<WebView>) -> WKWebView {
         let webView = WKWebView()
-        webView.load(URLRequest(url: URL(string: "https://yandex.ru")!))
+        
+        var url: String = ""
+        if let path = Bundle.main.path(forResource: "secret", ofType: "json") {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path))
+                let json = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+                
+                
+                if let jsonResult = json as? Dictionary<String, AnyObject>, let u = jsonResult["url"] as? String {
+                    url = u
+                }
+                          
+            } catch {
+                print("Keke")
+            }
+        }
+        
+        if let urlReq = URL(string: url) {
+            webView.load(URLRequest(url: urlReq))
+        }
+        
         webView.allowsBackForwardNavigationGestures = true
         webView.scrollView.bounces = false
         webView.scrollView.showsVerticalScrollIndicator = false
@@ -23,6 +43,6 @@ struct WebView: UIViewRepresentable
     }
     
     func updateUIView(_ uiView: WKWebView, context: UIViewRepresentableContext<WebView>) {
-        
+    
     }
 }
