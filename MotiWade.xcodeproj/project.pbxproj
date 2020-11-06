@@ -410,7 +410,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MotiWade/MotiWade.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"MotiWade/Preview Content\"";
 				DEVELOPMENT_TEAM = ZBVHAA67XK;
 				ENABLE_PREVIEWS = YES;
@@ -435,7 +435,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MotiWade/MotiWade.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"MotiWade/Preview Content\"";
 				DEVELOPMENT_TEAM = ZBVHAA67XK;
 				ENABLE_PREVIEWS = YES;
@@ -456,6 +456,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZBVHAA67XK;
 				INFOPLIST_FILE = ImagesNotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -475,6 +476,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZBVHAA67XK;
 				INFOPLIST_FILE = ImagesNotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
