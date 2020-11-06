@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D33A08C2556027D00EA4EAF /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2856825560132004DEDF6 /* NotificationService.swift */; };
 		6DB2852F2555BD05004DEDF6 /* MotiWadeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2852E2555BD05004DEDF6 /* MotiWadeApp.swift */; };
 		6DB285312555BD05004DEDF6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB285302555BD05004DEDF6 /* ContentView.swift */; };
 		6DB285332555BD08004DEDF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DB285322555BD08004DEDF6 /* Assets.xcassets */; };
@@ -17,7 +18,35 @@
 		6DB285582555DDA3004DEDF6 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB285572555DDA3004DEDF6 /* FirebaseMessaging */; };
 		6DB2855B2555DDCB004DEDF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2855A2555DDCB004DEDF6 /* AppDelegate.swift */; };
 		6DB2855E2555DEF6004DEDF6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6DB2855D2555DEF6004DEDF6 /* GoogleService-Info.plist */; };
+		6DB2856925560132004DEDF6 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2856825560132004DEDF6 /* NotificationService.swift */; };
+		6DB2856D25560132004DEDF6 /* ImagesNotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6DB2856625560132004DEDF6 /* ImagesNotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6DB285782556020F004DEDF6 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB285772556020F004DEDF6 /* FirebaseAuth */; };
+		6DB2857A2556020F004DEDF6 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB285792556020F004DEDF6 /* FirebaseMessaging */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6DB2856B25560132004DEDF6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6DB285232555BD05004DEDF6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6DB2856525560132004DEDF6;
+			remoteInfo = ImagesNotificationService;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6DB2857125560132004DEDF6 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				6DB2856D25560132004DEDF6 /* ImagesNotificationService.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6DB2852B2555BD05004DEDF6 /* MotiWade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MotiWade.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -31,6 +60,9 @@
 		6DB2855A2555DDCB004DEDF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6DB2855D2555DEF6004DEDF6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6DB285602555E417004DEDF6 /* MotiWade.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MotiWade.entitlements; sourceTree = "<group>"; };
+		6DB2856625560132004DEDF6 /* ImagesNotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImagesNotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6DB2856825560132004DEDF6 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		6DB2856A25560132004DEDF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +75,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6DB2856325560132004DEDF6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6DB2857A2556020F004DEDF6 /* FirebaseMessaging in Frameworks */,
+				6DB285782556020F004DEDF6 /* FirebaseAuth in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -50,7 +91,9 @@
 			isa = PBXGroup;
 			children = (
 				6DB2852D2555BD05004DEDF6 /* MotiWade */,
+				6DB2856725560132004DEDF6 /* ImagesNotificationService */,
 				6DB2852C2555BD05004DEDF6 /* Products */,
+				6DB285762556020F004DEDF6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				6DB2852B2555BD05004DEDF6 /* MotiWade.app */,
+				6DB2856625560132004DEDF6 /* ImagesNotificationService.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -87,6 +131,22 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		6DB2856725560132004DEDF6 /* ImagesNotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				6DB2856825560132004DEDF6 /* NotificationService.swift */,
+				6DB2856A25560132004DEDF6 /* Info.plist */,
+			);
+			path = ImagesNotificationService;
+			sourceTree = "<group>";
+		};
+		6DB285762556020F004DEDF6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -97,10 +157,12 @@
 				6DB285272555BD05004DEDF6 /* Sources */,
 				6DB285282555BD05004DEDF6 /* Frameworks */,
 				6DB285292555BD05004DEDF6 /* Resources */,
+				6DB2857125560132004DEDF6 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				6DB2856C25560132004DEDF6 /* PBXTargetDependency */,
 			);
 			name = MotiWade;
 			packageProductDependencies = (
@@ -110,6 +172,27 @@
 			productName = MotiWade;
 			productReference = 6DB2852B2555BD05004DEDF6 /* MotiWade.app */;
 			productType = "com.apple.product-type.application";
+		};
+		6DB2856525560132004DEDF6 /* ImagesNotificationService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6DB2856E25560132004DEDF6 /* Build configuration list for PBXNativeTarget "ImagesNotificationService" */;
+			buildPhases = (
+				6DB2856225560132004DEDF6 /* Sources */,
+				6DB2856325560132004DEDF6 /* Frameworks */,
+				6DB2856425560132004DEDF6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ImagesNotificationService;
+			packageProductDependencies = (
+				6DB285772556020F004DEDF6 /* FirebaseAuth */,
+				6DB285792556020F004DEDF6 /* FirebaseMessaging */,
+			);
+			productName = ImagesNotificationService;
+			productReference = 6DB2856625560132004DEDF6 /* ImagesNotificationService.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -121,6 +204,9 @@
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
 					6DB2852A2555BD05004DEDF6 = {
+						CreatedOnToolsVersion = 12.1;
+					};
+					6DB2856525560132004DEDF6 = {
 						CreatedOnToolsVersion = 12.1;
 					};
 				};
@@ -142,6 +228,7 @@
 			projectRoot = "";
 			targets = (
 				6DB2852A2555BD05004DEDF6 /* MotiWade */,
+				6DB2856525560132004DEDF6 /* ImagesNotificationService */,
 			);
 		};
 /* End PBXProject section */
@@ -158,6 +245,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6DB2856425560132004DEDF6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -168,11 +262,28 @@
 				6DB2855B2555DDCB004DEDF6 /* AppDelegate.swift in Sources */,
 				6DB2853F2555BF3E004DEDF6 /* WebView.swift in Sources */,
 				6DB285312555BD05004DEDF6 /* ContentView.swift in Sources */,
+				6D33A08C2556027D00EA4EAF /* NotificationService.swift in Sources */,
 				6DB2852F2555BD05004DEDF6 /* MotiWadeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6DB2856225560132004DEDF6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6DB2856925560132004DEDF6 /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6DB2856C25560132004DEDF6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6DB2856525560132004DEDF6 /* ImagesNotificationService */;
+			targetProxy = 6DB2856B25560132004DEDF6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		6DB285382555BD08004DEDF6 /* Debug */ = {
@@ -294,6 +405,7 @@
 		6DB2853B2555BD08004DEDF6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MotiWade/MotiWade.entitlements;
@@ -318,6 +430,7 @@
 		6DB2853C2555BD08004DEDF6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MotiWade/MotiWade.entitlements;
@@ -334,6 +447,44 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.RTUITLab.MotiWade;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		6DB2856F25560132004DEDF6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZBVHAA67XK;
+				INFOPLIST_FILE = ImagesNotificationService/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ru.RTUITLab.MotiWade.ImagesNotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		6DB2857025560132004DEDF6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZBVHAA67XK;
+				INFOPLIST_FILE = ImagesNotificationService/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ru.RTUITLab.MotiWade.ImagesNotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -360,6 +511,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		6DB2856E25560132004DEDF6 /* Build configuration list for PBXNativeTarget "ImagesNotificationService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6DB2856F25560132004DEDF6 /* Debug */,
+				6DB2857025560132004DEDF6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -380,6 +540,16 @@
 			productName = FirebaseAuth;
 		};
 		6DB285572555DDA3004DEDF6 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB285542555DDA3004DEDF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		6DB285772556020F004DEDF6 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB285542555DDA3004DEDF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		6DB285792556020F004DEDF6 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6DB285542555DDA3004DEDF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
