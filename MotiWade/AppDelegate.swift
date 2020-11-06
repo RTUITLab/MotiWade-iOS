@@ -40,6 +40,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           }
         }
         
+        Messaging.messaging().subscribe(toTopic: "test") { error in
+          print("Subscribed to test topic")
+        }
+        
         application.registerForRemoteNotifications()
         
         // [END register_for_notifications]
@@ -57,7 +61,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let messageID = userInfo[gcmMessageIDKey] {
             print("Message ID: \(messageID)")
         }
-        
+        print("ELEOKOJHIBJBGH")
+        application.applicationIconBadgeNumber = 0
         // Print full message.
         print(userInfo)
     }
@@ -73,10 +78,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let messageID = userInfo[gcmMessageIDKey] {
             print("Message ID: \(messageID)")
         }
-        
+        application.applicationIconBadgeNumber = 0
         // Print full message.
         print(userInfo)
-        
+       
         completionHandler(UIBackgroundFetchResult.newData)
     }
     // [END receive_message]
@@ -132,6 +137,9 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         // Print full message.
         print(userInfo)
+        
+        
+        UIApplication.shared.applicationIconBadgeNumber = 0
         
         completionHandler()
     }
