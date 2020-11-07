@@ -9,11 +9,16 @@ import SwiftUI
 import UIKit
 import WebKit
 
-extension WKWebView {
+extension WKWebView: UIScrollViewDelegate {
     open override var safeAreaInsets: UIEdgeInsets {
             return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
+    
+    public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+            return nil
+        }
 }
+
 
 struct WebView: UIViewRepresentable
 {
@@ -44,6 +49,7 @@ struct WebView: UIViewRepresentable
         
         webView.allowsBackForwardNavigationGestures = true
         webView.scrollView.bounces = false
+        webView.scrollView.bouncesZoom = false
         webView.scrollView.showsVerticalScrollIndicator = false
         return webView
     }
