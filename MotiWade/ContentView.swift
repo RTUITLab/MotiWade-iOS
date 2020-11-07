@@ -43,33 +43,49 @@ struct ContentView: View {
     @State var isWeb: Bool = false
     @State var url: String = ""
     @ObservedObject var webLoading = WebLoading()
+    
+    @State var colors: [Color] = [Color(hex: "a200d7"), Color(hex: "00ffce")]
+    @State var hueRotationValue = 0.0
+    @State var saturationValue = 1.0
+    @State var isOpacity: Bool = true
     var body: some View {
-        if isWeb {
-            VStack{
-                if !webLoading.isLoaded {
-                    ProgressView()
+        ZStack{
+            LinearGradient(gradient: Gradient(colors: colors), startPoint: .bottom, endPoint: .top)
+                .hueRotation(Angle(degrees: self.hueRotationValue))
+                .saturation(self.saturationValue)
+            
+            GeometryReader { g in
+                VStack {
+                    Image("clipped")
+                        .frame(height: g.size.height / 4)
+                        .offset(x: -500 - (300 + self.offset))
+                    Spacer()
+                    Image("clipped")
+                        .frame(height: g.size.height / 4)
+                        .offset(x: self.offset)
                 }
-                WebView(url: url).frame(height: webLoading.isLoaded ? UIScreen.main.bounds.height : 0.01).environmentObject(webLoading)
-            }
-            .edgesIgnoringSafeArea(.all)
-        } else {
-            ZStack{
-                LinearGradient(gradient: Gradient(colors: [Color(hex: "a200d7"), Color(hex: "00ffce")]), startPoint: .bottom, endPoint: .top)
+                .onAppear {
+                    withAnimation(Animation.linear(duration: 15).repeatForever()) { self.offset = -800 }
+                }
                 
-                GeometryReader { g in
-                    VStack {
-                        Image("clipped")
-                            .frame(height: g.size.height / 4)
-                            .offset(x: -500 - (300 + self.offset))
-                        Spacer()
-                        Image("clipped")
-                            .frame(height: g.size.height / 4)
-                            .offset(x: self.offset)
-                    }
-                    .onAppear {
-                        withAnimation(Animation.linear(duration: 15).repeatForever()) { self.offset = -800 }
+            }
+            
+            if  !isOpacity && !webLoading.isLoaded {
+                ProgressView()
+            }
+            
+            if isWeb {
+                VStack{
+                    
+                    GeometryReader { g in
+                        WebView(url: url).frame(width: g.size.width, height: webLoading.isLoaded ? g.size.height : 0.01).environmentObject(webLoading)
+                        
                     }
                 }
+                
+            }
+            
+            ZStack {
                 VStack {
                     Image("LogoProject")
                     Text("Motivates you to care")
@@ -82,7 +98,19 @@ struct ContentView: View {
                     VStack {
                         Button(action: {
                             url = "/onboarding"
-                            isWeb = true
+                            
+                            
+                            withAnimation (Animation.easeInOut(duration: 2)){
+                                //                                self.saturationValue = 0.7
+                                self.isOpacity.toggle()
+                            }
+                            
+                            
+                            withAnimation (Animation.easeInOut(duration: 3)){
+                                self.hueRotationValue = 150
+                                isWeb = true
+                            }
+                            
                         }){
                             Text("Start journey")
                                 .fontWeight(.bold)
@@ -95,7 +123,17 @@ struct ContentView: View {
                         
                         Button(action: {
                             url = "/test/page/1"
-                            isWeb = true
+                            
+                            withAnimation (Animation.easeInOut(duration: 2)){
+                                //                                self.saturationValue = 0.7
+                                self.isOpacity.toggle()
+                            }
+                            
+                            
+                            withAnimation (Animation.easeInOut(duration: 3)){
+                                self.hueRotationValue = -150
+                                isWeb = true
+                            }
                         }){
                             Text("Skip onboarding")
                                 .fontWeight(.bold)
@@ -109,8 +147,12 @@ struct ContentView: View {
                     
                 }
             }
-            .edgesIgnoringSafeArea(.all)
+            .opacity(isOpacity ? 1 : 0)
+            .transition(.opacity)
+            
         }
+        .edgesIgnoringSafeArea(.all)
+        
     }
 }
 
