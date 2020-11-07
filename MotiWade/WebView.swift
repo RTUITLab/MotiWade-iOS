@@ -11,12 +11,12 @@ import WebKit
 
 extension WKWebView: UIScrollViewDelegate {
     open override var safeAreaInsets: UIEdgeInsets {
-            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        }
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
     
     public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-            return nil
-        }
+        return nil
+    }
 }
 
 
@@ -24,6 +24,8 @@ struct WebView: UIViewRepresentable
 {
     typealias UIViewType = WKWebView
     
+    @State var url: String = ""
+    @EnvironmentObject var webLoading: WebLoading
     func makeUIView(context: UIViewRepresentableContext<WebView>) -> WKWebView {
         let webView = WKWebView()
         
@@ -37,16 +39,16 @@ struct WebView: UIViewRepresentable
                 if let jsonResult = json as? Dictionary<String, AnyObject>, let u = jsonResult["url"] as? String {
                     url = u
                 }
-                          
+                
             } catch {
                 print("Keke")
             }
         }
         
-        if let urlReq = URL(string: url) {
+        if let urlReq = URL(string: url + self.url) {
             webView.load(URLRequest(url: urlReq))
         }
-        
+        webView.navigationDelegate = context.coordinator
         webView.allowsBackForwardNavigationGestures = true
         webView.scrollView.bounces = false
         webView.scrollView.bouncesZoom = false
@@ -55,8 +57,24 @@ struct WebView: UIViewRepresentable
     }
     
     func updateUIView(_ uiView: WKWebView, context: UIViewRepresentableContext<WebView>) {
-    
+        
     }
     
+    class Coordinator: NSObject, WKNavigationDelegate {
+        private var webLoading: WebLoading
+        
+        init(_ webLoading: WebLoading) {
+            self.webLoading = webLoading
+        }
+        
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            
+            self.webLoading.isLoaded = true
+            print(self.webLoading.isLoaded)
+        }
+    }
     
+    func makeCoordinator() -> WebView.Coordinator {
+        Coordinator(webLoading)
+    }
 }
