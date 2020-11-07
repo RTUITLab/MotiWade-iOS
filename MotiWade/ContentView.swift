@@ -36,6 +36,7 @@ extension Color {
 
 class WebLoading: ObservableObject {
     @Published var isLoaded: Bool = false
+    
 }
 
 struct ContentView: View {

@@ -30,19 +30,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             options: authOptions,
             completionHandler: {_, _ in })
         
-        
-        Messaging.messaging().token { token, error in
-          if let error = error {
-            print("Error fetching FCM registration token: \(error)")
-          } else if let token = token {
-            print("FCM registration token: \(token)")
-//            self.fcmRegTokenMessage.text  = "Remote FCM registration token: \(token)"
-          }
-        }
-        
-        Messaging.messaging().subscribe(toTopic: "test") { error in
-          print("Subscribed to test topic")
-        }
+//        
+//        Messaging.messaging().token { token, error in
+//          if let error = error {
+//            print("Error fetching FCM registration token: \(error)")
+//          } else if let token = token {
+//            print("FCM registration token: \(token)")
+////            self.fcmRegTokenMessage.text  = "Remote FCM registration token: \(token)"
+//          }
+//        }
         
         application.registerForRemoteNotifications()
         

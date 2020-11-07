@@ -8,6 +8,7 @@
 import SwiftUI
 import UIKit
 import WebKit
+import Firebase
 
 extension WKWebView: UIScrollViewDelegate {
     open override var safeAreaInsets: UIEdgeInsets {
@@ -27,7 +28,11 @@ struct WebView: UIViewRepresentable
     @State var url: String = ""
     @EnvironmentObject var webLoading: WebLoading
     func makeUIView(context: UIViewRepresentableContext<WebView>) -> WKWebView {
-        let webView = WKWebView()
+        
+        let config = WKWebViewConfiguration()
+        config.userContentController.add(context.coordinator, name: "auth")
+        
+        let webView = WKWebView(frame: UIScreen.main.bounds, configuration: config)
         
         var url: String = ""
         if let path = Bundle.main.path(forResource: "secret", ofType: "json") {
@@ -47,6 +52,7 @@ struct WebView: UIViewRepresentable
         
         if let urlReq = URL(string: url + self.url) {
             webView.load(URLRequest(url: urlReq))
+            
         }
         webView.navigationDelegate = context.coordinator
         webView.allowsBackForwardNavigationGestures = true
@@ -60,7 +66,7 @@ struct WebView: UIViewRepresentable
         
     }
     
-    class Coordinator: NSObject, WKNavigationDelegate {
+    class Coordinator: NSObject, WKNavigationDelegate, URLSessionDelegate, WKScriptMessageHandler {
         private var webLoading: WebLoading
         
         init(_ webLoading: WebLoading) {
@@ -70,7 +76,39 @@ struct WebView: UIViewRepresentable
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
             
             self.webLoading.isLoaded = true
-            print(self.webLoading.isLoaded)
+                
+            
+        }
+        func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+            let cred = URLCredential(trust: challenge.protectionSpace.serverTrust!)
+            completionHandler(.useCredential, cred)
+        }
+        
+        func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+            guard let message = message.body as? [String: AnyObject] else {
+                print("Not message")
+                return
+            }
+            
+            guard let isAuthenticated = message["isAuthenticated"] as? Bool else {
+                print("not auth")
+                return
+            }
+            
+            if isAuthenticated {
+                guard let userId = message["userId"] as? String else {
+                    print("not auth")
+                    return
+                }
+                
+                Messaging.messaging().subscribe(toTopic: userId) { error in
+                  print("Subscribed to \(userId) topic")
+                }
+                
+                Messaging.messaging().subscribe(toTopic: "all") { error in
+                  print("Subscribed to all topic")
+                }
+            }
         }
     }
     
