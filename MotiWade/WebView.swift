@@ -9,6 +9,12 @@ import SwiftUI
 import UIKit
 import WebKit
 
+extension WKWebView {
+    open override var safeAreaInsets: UIEdgeInsets {
+            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        }
+}
+
 struct WebView: UIViewRepresentable
 {
     typealias UIViewType = WKWebView
@@ -45,4 +51,6 @@ struct WebView: UIViewRepresentable
     func updateUIView(_ uiView: WKWebView, context: UIViewRepresentableContext<WebView>) {
     
     }
+    
+    
 }

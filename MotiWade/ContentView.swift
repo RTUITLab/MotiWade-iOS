@@ -11,8 +11,8 @@ struct ContentView: View {
     var body: some View {
         VStack{
             WebView()
+                .edgesIgnoringSafeArea(.all)
         }
-        .edgesIgnoringSafeArea(.bottom)
     }
 }
 
