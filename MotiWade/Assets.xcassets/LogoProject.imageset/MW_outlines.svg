@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="324px" height="134px" viewBox="0 0 324 134" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>MW</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+        <path d="M92.6,484 L92.6,436 L120,476 L147.2,436 L147.2,484 L189.8,484 L189.8,350.6 L154.6,350.6 L120,401.8 L85.2,350.6 L50,350.6 L50,484 L92.6,484 Z M75.2,468 L70,468 L70,366.6 L75.2,366.6 L120,432.4 L164.6,366.6 L169.8,366.6 L169.8,468 L164.6,468 L164.6,376.2 L120,441.4 L75.2,376.2 L75.2,468 Z M270,484 L283.4,443.6 L296.8,484 L330,484 L374,350.6 L328.8,350.6 L313.4,397.2 L298,350.6 L268.8,350.6 L253.4,397.2 L238,350.6 L192.8,350.6 L236.8,484 L270,484 Z M256.8,468 L251.8,468 L218.4,366.6 L223.8,366.6 L254.2,458.8 L283.4,366.6 L312.6,458.8 L343,366.6 L348.4,366.6 L315,468 L310,468 L283.4,384.2 L256.8,468 Z" id="path-2"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Start-Page-MW" transform="translate(-50.000000, -350.000000)" fill-rule="nonzero">
+            <g id="MW">
+                <use fill="#00FFC1" xlink:href="#path-2"></use>
+                <use fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+            </g>
+        </g>
+    </g>
+</svg>
