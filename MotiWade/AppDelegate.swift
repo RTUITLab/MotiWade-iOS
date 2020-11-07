@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WebKit
 import UserNotifications
 
 import Firebase
@@ -19,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         FirebaseApp.configure()
-        
         
         Messaging.messaging().delegate = self
         
@@ -153,4 +153,42 @@ extension AppDelegate : MessagingDelegate {
         // Note: This callback is fired at each app startup and whenever a new token is generated.
     }
     // [END refresh_token]
+}
+
+
+extension UserDefaults {
+
+    /// A dictionary of properties representing a cookie.
+    typealias CookieProperties = [HTTPCookiePropertyKey: Any]
+
+    /// The `UserDefaults` key for accessing cookies.
+    private static let cookieKey = "cookies"
+
+    /// Saves all cookies currently in the shared `HTTPCookieStorage` to the shared `UserDefaults`.
+    func storeCookies(_ cookies: [HTTPCookie]) {
+        let userDefaults = UserDefaults.standard
+
+        var cookieDict = [String : AnyObject]()
+        
+        for cookie in cookies {
+            cookieDict[cookie.name] = cookie.properties as AnyObject?
+        }
+
+        userDefaults.set(cookieDict, forKey: "cookiesKey")
+    }
+
+    /// Loads all cookies stored in the shared `UserDefaults` and adds them to the current shared `HTTPCookieStorage`.
+    func restoreCookies(_ webView: WKWebView) {
+        let userDefaults = UserDefaults.standard
+
+        if let cookieDictionary = userDefaults.dictionary(forKey: "cookiesKey") {
+
+            for (_, cookieProperties) in cookieDictionary {
+                if let cookie = HTTPCookie(properties: cookieProperties as! [HTTPCookiePropertyKey : Any] ) {
+                    webView.configuration.websiteDataStore.httpCookieStore.setCookie(cookie)
+                }
+            }
+        }
+    }
+
 }

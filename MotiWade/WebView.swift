@@ -33,7 +33,6 @@ struct WebView: UIViewRepresentable
         config.userContentController.add(context.coordinator, name: "auth")
         
         let webView = WKWebView(frame: UIScreen.main.bounds, configuration: config)
-        
         var url: String = ""
         if let path = Bundle.main.path(forResource: "secret", ofType: "json") {
             do {
@@ -54,6 +53,9 @@ struct WebView: UIViewRepresentable
             webView.load(URLRequest(url: urlReq))
             
         }
+        
+        
+        UserDefaults.standard.restoreCookies(webView)
         webView.navigationDelegate = context.coordinator
         webView.allowsBackForwardNavigationGestures = true
         webView.scrollView.bounces = false
@@ -68,7 +70,7 @@ struct WebView: UIViewRepresentable
     
     class Coordinator: NSObject, WKNavigationDelegate, URLSessionDelegate, WKScriptMessageHandler {
         private var webLoading: WebLoading
-        
+        private var webView: WKWebView?
         init(_ webLoading: WebLoading) {
             self.webLoading = webLoading
         }
@@ -76,9 +78,16 @@ struct WebView: UIViewRepresentable
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
             
             self.webLoading.isLoaded = true
-                
+            self.webView = webView
+            webView.evaluateJavaScript("document.mobileAppInterop.setIsIosApp()", completionHandler: nil)
+        }
+        
+        func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+            self.webLoading.isOpacity = true
+            self.webLoading.isLoaded = false
             
         }
+        
         func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
             let cred = URLCredential(trust: challenge.protectionSpace.serverTrust!)
             completionHandler(.useCredential, cred)
@@ -101,13 +110,22 @@ struct WebView: UIViewRepresentable
                     return
                 }
                 
+                if let webView = self.webView {
+                    webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { (cookies) in
+                        UserDefaults.standard.storeCookies(cookies)
+                    }
+                    
+                }
+                
                 Messaging.messaging().subscribe(toTopic: userId) { error in
-                  print("Subscribed to \(userId) topic")
+                    print("Subscribed to \(userId) topic")
                 }
                 
                 Messaging.messaging().subscribe(toTopic: "all") { error in
-                  print("Subscribed to all topic")
+                    print("Subscribed to all topic")
                 }
+                
+                
             }
         }
     }

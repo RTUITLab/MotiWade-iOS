@@ -36,7 +36,7 @@ extension Color {
 
 class WebLoading: ObservableObject {
     @Published var isLoaded: Bool = false
-    
+    @Published var isOpacity: Bool = true
 }
 
 struct ContentView: View {
@@ -48,7 +48,7 @@ struct ContentView: View {
     @State var colors: [Color] = [Color(hex: "a200d7"), Color(hex: "00ffce")]
     @State var hueRotationValue = 0.0
     @State var saturationValue = 1.0
-    @State var isOpacity: Bool = true
+    
     var body: some View {
         ZStack{
             LinearGradient(gradient: Gradient(colors: colors), startPoint: .bottom, endPoint: .top)
@@ -71,7 +71,7 @@ struct ContentView: View {
                 
             }
             
-            if  !isOpacity && !webLoading.isLoaded {
+            if  !webLoading.isOpacity && !webLoading.isLoaded {
                 ProgressView()
             }
             
@@ -103,7 +103,7 @@ struct ContentView: View {
                             
                             withAnimation (Animation.easeInOut(duration: 2)){
                                 //                                self.saturationValue = 0.7
-                                self.isOpacity.toggle()
+                                webLoading.isOpacity.toggle()
                             }
                             
                             
@@ -127,7 +127,7 @@ struct ContentView: View {
                             
                             withAnimation (Animation.easeInOut(duration: 2)){
                                 //                                self.saturationValue = 0.7
-                                self.isOpacity.toggle()
+                                webLoading.isOpacity.toggle()
                             }
                             
                             
@@ -148,12 +148,11 @@ struct ContentView: View {
                     
                 }
             }
-            .opacity(isOpacity ? 1 : 0)
+            .opacity(webLoading.isOpacity ? 1 : 0)
             .transition(.opacity)
             
         }
         .edgesIgnoringSafeArea(.all)
-        
     }
 }
 
