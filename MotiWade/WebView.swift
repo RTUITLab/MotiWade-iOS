@@ -97,6 +97,7 @@ struct WebView: UIViewRepresentable
     class Coordinator: NSObject, WKNavigationDelegate, URLSessionDelegate, WKScriptMessageHandler {
         private var webLoading: WebLoading
         private var webView: WKWebView?
+        private var id: String = ""
         public var isLoaded: Bool = false
         init(_ webLoading: WebLoading) {
             self.webLoading = webLoading
@@ -145,7 +146,7 @@ struct WebView: UIViewRepresentable
                     }
                     
                 }
-                
+                self.id = userId
                 Messaging.messaging().subscribe(toTopic: userId) { error in
                     print("Subscribed to \(userId) topic")
                 }
@@ -157,7 +158,14 @@ struct WebView: UIViewRepresentable
                 
             } else if isLoaded {
                 self.isLoaded = false
+                
+                Messaging.messaging().unsubscribe(fromTopic: self.id)
+                Messaging.messaging().unsubscribe(fromTopic: "all")
+                
+                self.id = ""
+                
                 UserDefaults.standard.removeCookies()
+                
                 self.webLoading.isOpacity = true
                 self.webLoading.isLoaded = false
                 self.webLoading.isUpdate = true
@@ -168,9 +176,5 @@ struct WebView: UIViewRepresentable
     
     func makeCoordinator() -> WebView.Coordinator {
         Coordinator(webLoading)
-    }
-    
-    static func dismantleUIView(_ uiView: WKWebView, coordinator: Coordinator) {
-        print("kek")
     }
 }
