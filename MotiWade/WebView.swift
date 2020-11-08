@@ -34,6 +34,7 @@ struct WebView: UIViewRepresentable
         
         let config = WKWebViewConfiguration()
         config.userContentController.add(context.coordinator, name: "auth")
+        config.userContentController.add(context.coordinator, name: "copy")
         
         let webView = WKWebView(frame: UIScreen.main.bounds, configuration: config)
         var url: String = ""
@@ -42,13 +43,11 @@ struct WebView: UIViewRepresentable
                 let data = try Data(contentsOf: URL(fileURLWithPath: path))
                 let json = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
                 
-                
                 if let jsonResult = json as? Dictionary<String, AnyObject>, let u = jsonResult["url"] as? String {
                     url = u
                 }
-                
             } catch {
-                print("Keke")
+                print("error parse json")
             }
         }
         
@@ -67,7 +66,7 @@ struct WebView: UIViewRepresentable
     }
     
     func updateUIView(_ uiView: WKWebView, context: UIViewRepresentableContext<WebView>) {
-       
+        
         if webLoading.isUpdate && !webLoading.isLoaded{
             
             webLoading.isUpdate = false
@@ -111,8 +110,17 @@ struct WebView: UIViewRepresentable
         }
         
         func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+            Messaging.messaging().unsubscribe(fromTopic: self.id)
+            Messaging.messaging().unsubscribe(fromTopic: "all")
+            
+            self.id = ""
+            
+            UserDefaults.standard.removeCookies()
+            
             self.webLoading.isOpacity = true
             self.webLoading.isLoaded = false
+            self.webLoading.isUpdate = true
+            self.webLoading.isWeb = false
         }
         
         func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
@@ -121,8 +129,24 @@ struct WebView: UIViewRepresentable
         }
         
         func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+            
+            if message.name == "copy" {
+                guard let message = message.body as?  [String: AnyObject] else {
+                    print("Not message in topic \"copi\"")
+                    return
+                }
+                
+                guard let text = message["text"] as? String else {
+                    print("not text copy")
+                    return
+                }
+                
+                UIPasteboard.general.string = text
+                return
+            }
+            
             guard let message = message.body as? [String: AnyObject] else {
-                print("Not message")
+                print("Not message in topic \"auth\"")
                 return
             }
             
@@ -147,6 +171,7 @@ struct WebView: UIViewRepresentable
                     
                 }
                 self.id = userId
+                
                 Messaging.messaging().subscribe(toTopic: userId) { error in
                     print("Subscribed to \(userId) topic")
                 }
