@@ -157,8 +157,7 @@ struct WebView: UIViewRepresentable
                 
             } else if isLoaded {
                 self.isLoaded = false
-                let cookies: [HTTPCookie] = []
-                UserDefaults.standard.storeCookies(cookies)
+                UserDefaults.standard.removeCookies()
                 self.webLoading.isOpacity = true
                 self.webLoading.isLoaded = false
                 self.webLoading.isUpdate = true

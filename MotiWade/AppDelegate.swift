@@ -173,8 +173,15 @@ extension UserDefaults {
         for cookie in cookies {
             cookieDict[cookie.name] = cookie.properties as AnyObject?
         }
-
+        
         userDefaults.set(cookieDict, forKey: "cookiesKey")
+        userDefaults.synchronize()
+    }
+    
+    func removeCookies() {
+        let userDefaults = UserDefaults.standard
+        userDefaults.removeObject(forKey: "cookiesKey")
+        userDefaults.synchronize()
     }
 
     /// Loads all cookies stored in the shared `UserDefaults` and adds them to the current shared `HTTPCookieStorage`.
