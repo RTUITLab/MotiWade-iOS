@@ -8,6 +8,7 @@
 import SwiftUI
 import UIKit
 import WebKit
+import Combine
 import Firebase
 
 extension WKWebView: UIScrollViewDelegate {
@@ -27,6 +28,8 @@ struct WebView: UIViewRepresentable
     
     @State var url: String = ""
     @EnvironmentObject var webLoading: WebLoading
+    
+    
     func makeUIView(context: UIViewRepresentableContext<WebView>) -> WKWebView {
         
         let config = WKWebViewConfiguration()
@@ -54,7 +57,6 @@ struct WebView: UIViewRepresentable
             
         }
         
-        
         UserDefaults.standard.restoreCookies(webView)
         webView.navigationDelegate = context.coordinator
         webView.allowsBackForwardNavigationGestures = true
@@ -65,12 +67,37 @@ struct WebView: UIViewRepresentable
     }
     
     func updateUIView(_ uiView: WKWebView, context: UIViewRepresentableContext<WebView>) {
-        
+       
+        if webLoading.isUpdate && !webLoading.isLoaded{
+            
+            webLoading.isUpdate = false
+            var url: String = ""
+            if let path = Bundle.main.path(forResource: "secret", ofType: "json") {
+                do {
+                    let data = try Data(contentsOf: URL(fileURLWithPath: path))
+                    let json = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+                    
+                    
+                    if let jsonResult = json as? Dictionary<String, AnyObject>, let u = jsonResult["url"] as? String {
+                        url = u
+                    }
+                    
+                } catch {
+                    print("Keke")
+                }
+            }
+            
+            if let urlReq = URL(string: url + self.url) {
+                uiView.load(URLRequest(url: urlReq))
+                
+            }
+        }
     }
     
     class Coordinator: NSObject, WKNavigationDelegate, URLSessionDelegate, WKScriptMessageHandler {
         private var webLoading: WebLoading
         private var webView: WKWebView?
+        public var isLoaded: Bool = false
         init(_ webLoading: WebLoading) {
             self.webLoading = webLoading
         }
@@ -85,7 +112,6 @@ struct WebView: UIViewRepresentable
         func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
             self.webLoading.isOpacity = true
             self.webLoading.isLoaded = false
-            
         }
         
         func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
@@ -105,10 +131,13 @@ struct WebView: UIViewRepresentable
             }
             
             if isAuthenticated {
+                
                 guard let userId = message["userId"] as? String else {
                     print("not auth")
                     return
                 }
+                
+                self.isLoaded = true
                 
                 if let webView = self.webView {
                     webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { (cookies) in
@@ -126,11 +155,23 @@ struct WebView: UIViewRepresentable
                 }
                 
                 
+            } else if isLoaded {
+                self.isLoaded = false
+                let cookies: [HTTPCookie] = []
+                UserDefaults.standard.storeCookies(cookies)
+                self.webLoading.isOpacity = true
+                self.webLoading.isLoaded = false
+                self.webLoading.isUpdate = true
+                self.webLoading.isWeb = false
             }
         }
     }
     
     func makeCoordinator() -> WebView.Coordinator {
         Coordinator(webLoading)
+    }
+    
+    static func dismantleUIView(_ uiView: WKWebView, coordinator: Coordinator) {
+        print("kek")
     }
 }

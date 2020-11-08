@@ -37,11 +37,13 @@ extension Color {
 class WebLoading: ObservableObject {
     @Published var isLoaded: Bool = false
     @Published var isOpacity: Bool = true
+    @Published var isUpdate = false
+    @Published var isWeb: Bool = false
 }
 
 struct ContentView: View {
     @State var offset: CGFloat = 0
-    @State var isWeb: Bool = false
+    
     @State var url: String = ""
     @ObservedObject var webLoading = WebLoading()
     
@@ -75,7 +77,7 @@ struct ContentView: View {
                 ProgressView()
             }
             
-            if isWeb {
+            if webLoading.isWeb {
                 VStack{
                     
                     GeometryReader { g in
@@ -109,7 +111,7 @@ struct ContentView: View {
                             
                             withAnimation (Animation.easeInOut(duration: 3)){
                                 self.hueRotationValue = 150
-                                isWeb = true
+                                webLoading.isWeb = true
                             }
                             
                         }){
@@ -133,7 +135,7 @@ struct ContentView: View {
                             
                             withAnimation (Animation.easeInOut(duration: 3)){
                                 self.hueRotationValue = -150
-                                isWeb = true
+                                webLoading.isWeb = true
                             }
                         }){
                             Text("Skip onboarding")
